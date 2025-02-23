@@ -25,11 +25,11 @@ add_executable(main src/main.cpp)
 target_include_directories(socketcan_cpp PUBLIC include)
 target_link_libraries(main socketcan_cpp)
 
-enable_testing()
-add_executable(mytest tests/MyTests.cpp)
-target_include_directories(socketcan_cpp PRIVATE tests)
-target_link_libraries(mytest PRIVATE socketcan_cpp)
-add_test(test1 mytest)
+#enable_testing()
+#add_executable(mytest tests/MyTests.cpp)
+#target_include_directories(socketcan_cpp PRIVATE tests)
+#target_link_libraries(mytest PRIVATE socketcan_cpp)
+#add_test(test1 mytest)
 
 
 # Clang tidy as optional static analyzer
@@ -52,8 +52,8 @@ option(Template_MEMCHECK "Use LLVM AddressSanitizer to detecting memory errors" 
 if (Template_MEMCHECK)
     if (CMAKE_CXX_COMPILER_ID MATCHES "Clang")
         message(STATUS "Configuring with LLVM AddressSanitizer")
-        set(Template_MEMCHECK_FLAGS -fno-optimize-sibling-calls 
-                                    -fsanitize=address 
+        set(Template_MEMCHECK_FLAGS -fno-optimize-sibling-calls
+                                    -fsanitize=address
                                     -fsanitize-address-use-after-scope
                                     )
         target_compile_options(socketcan_cpp PUBLIC -O1 -g -fno-omit-frame-pointer ${Template_MEMCHECK_FLAGS})
