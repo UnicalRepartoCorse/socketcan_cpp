@@ -21,9 +21,18 @@ endif()
 add_library(socketcan_cpp src/SocketCAN.cpp)
 target_include_directories(socketcan_cpp PUBLIC include)
 
-add_executable(main src/main.cpp)
-target_include_directories(socketcan_cpp PUBLIC include)
-target_link_libraries(main socketcan_cpp)
+install(TARGETS socketcan_cpp
+    ARCHIVE DESTINATION lib    # Per librerie statiche (file .a)
+    LIBRARY DESTINATION lib    # Per librerie condivise (file .so o .dll)
+    RUNTIME DESTINATION bin  # Per eseguibili, se presenti
+)
+install(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/include/
+    DESTINATION include
+)
+
+#add_executable(main src/main.cpp)
+#target_include_directories(socketcan_cpp PUBLIC include)
+#target_link_libraries(main socketcan_cpp)
 
 #enable_testing()
 #add_executable(mytest tests/MyTests.cpp)
